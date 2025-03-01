@@ -11,4 +11,4 @@ class EngFraTranslationDataset(Dataset):
         return len(self.eng_tensor)
 
     def __getitem__(self, idx):
-        return self.eng_tensor[idx], self.fra_tensor[idx][:-1], self.eng_valid_len, self.fra_tensor[idx][1:]
+        return self.eng_tensor[idx], self.fra_tensor[idx][:-1], self.eng_valid_len[idx], self.fra_tensor[idx][1:]
