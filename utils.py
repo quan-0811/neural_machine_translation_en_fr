@@ -8,7 +8,6 @@ def mask_sequence(X: torch.Tensor, valid_len: torch.Tensor, value=-1e6):
 
 def masked_softmax(X: torch.Tensor, valid_len: torch.Tensor):
     shape = X.shape
-    print(shape)
     if valid_len.dim() == 1:
         valid_len = torch.repeat_interleave(valid_len, shape[1])
     else:
