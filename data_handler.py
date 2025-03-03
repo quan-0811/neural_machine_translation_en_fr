@@ -86,5 +86,6 @@ class EngFraData:
         eng_tensor = torch.tensor([eng_vocab[s] for s in eng_sentences])
         valid_eng_len = (eng_tensor != eng_vocab["<pad>"]).type(torch.int32).sum(1)
         fra_tensor = torch.tensor([fra_vocab[s] for s in fra_sentences])
+        valid_fra_len = (fra_tensor != fra_vocab["<pad>"]).type(torch.int32).sum(1)
 
-        return eng_tensor, fra_tensor, valid_eng_len, eng_vocab, fra_vocab
+        return eng_tensor, valid_eng_len, fra_tensor, valid_fra_len, eng_vocab, fra_vocab
