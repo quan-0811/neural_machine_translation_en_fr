@@ -5,7 +5,7 @@ from model.decoder_blk import TransformerDecoderBlock
 from module.pos_encode import PositionalEncoding
 
 class TransformerDecoder(nn.Module):
-    def __init__(self, num_blks: int, fra_vocab_size: int, num_hiddens: int, num_attention_heads: int, dropout_rate: float, training):
+    def __init__(self, num_blks: int, fra_vocab_size: int, num_hiddens: int, num_attention_heads: int, dropout_rate: float):
         super().__init__()
         self.num_hiddens = num_hiddens
         self.embedding = nn.Embedding(num_embeddings=fra_vocab_size, embedding_dim=num_hiddens)
