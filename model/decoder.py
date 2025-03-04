@@ -14,10 +14,10 @@ class TransformerDecoder(nn.Module):
         self.encoder_blocks = nn.Sequential(*blks)
         self.dense = nn.LazyLinear(out_features=fra_vocab_size)
 
-    def forward(self, X: torch.Tensor, enc_valid_lens: torch.Tensor):
+    def forward(self, X: torch.Tensor, encoder_output: torch.Tensor, enc_valid_lens: torch.Tensor, dec_valid_lens: torch.Tensor):
         X = self.position_encode(self.embedding(X) * math.sqrt(self.num_hiddens))
 
         for enc_blk in self.encoder_blocks:
-            X = enc_blk(X, enc_valid_lens)
+            X = enc_blk(X, encoder_output, enc_valid_lens, dec_valid_lens)
 
         return self.dense(X)
