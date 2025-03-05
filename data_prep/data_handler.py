@@ -4,15 +4,17 @@ import shutil
 import kagglehub
 import re
 from vocab import Vocabulary
+from utils import fix_spacing
 
 class EngFraData:
     def __init__(self, num_steps: int, download_folder_path = "data"):
         self.download_folder_path = download_folder_path
         self.num_steps = num_steps
-        eng_tensor, fra_tensor, valid_eng_len, eng_vocab, fra_vocab = self.build_data()
+        eng_tensor, valid_eng_len, fra_tensor, valid_fra_len, eng_vocab, fra_vocab = self.build_data()
         self.eng_tensor = eng_tensor
         self.fra_tensor = fra_tensor
         self.valid_eng_len = valid_eng_len
+        self.valid_fra_len = valid_fra_len
         self.eng_vocab = eng_vocab
         self.fra_vocab = fra_vocab
 
@@ -32,15 +34,6 @@ class EngFraData:
     # Preprocess the dataset
     def preprocess(self):
         cleaned_lines = []
-
-        # Add space before punctuations if there's none
-        def fix_spacing(text):
-            new_text = ""
-            for i, char in enumerate(text):
-                if i > 0 and char in ",.!?" and text[i - 1] != " ":
-                    new_text += " "
-                new_text += char
-            return new_text
 
         # Remove unnecessary texts
         with open(self.download_folder_path + "/fra.txt", "r", encoding="utf-8") as file:
